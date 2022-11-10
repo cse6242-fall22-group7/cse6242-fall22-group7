@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+    </style>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="//unpkg.com/3d-force-graph"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+</head>
+
+<body>
+    <div id="3d-graph"></div>
+    <script>
+        const address_prefix_length = 6;
+        const highlightNodes = new Set();
+        // const highlightLinks = new Set();
+        let hoverNode = null;
+        let hoverLink = null;
+        const Graph = ForceGraph3D()
+            (document.getElementById('3d-graph'))
+            .jsonUrl('graph.json')
+            .enableNodeDrag(false)
+            .cooldownTicks(100)
+            .linkWidth(1)
+            .nodeColor(node => highlightNodes.has(node.id) ? node === hoverNode ? 'rgb(255,0,0,1)' : 'rgba(255,160,0,0.8)' : 'rgba(0,255,255,0.6)')
+            .linkColor(link => link === hoverLink ? 'rgba(255, 0, 0, 1)' : 'rgba(200, 200, 200, 1)')
+            .nodeLabel(node => `${ethers.utils.getAddress(node.id)}`)
+            .onNodeHover(node => {
+                // no state change
+                if ((!node && !highlightNodes.size) || (node && hoverNode === node)) return;
+
+                highlightNodes.clear();
+                if (node) {
+                    highlightNodes.add(node.id);
+                    node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
+                }
+
+                hoverNode = node || null;
+                updateHighlight();
+            })
+            .linkOpacity(0.2)
+            .linkLabel(link => `${link.value} transactions`)
+            .onLinkHover(link => {
+                if ((!link && !highlightNodes.size) || (link && hoverLink === link)) return;
+
+                highlightNodes.clear();
+                if (link) {
+                    highlightNodes.add(link.source.id);
+                    highlightNodes.add(link.target.id)
+                }
+                
+                hoverLink = link || null;
+
+                updateHighlight();
+            })
+            .onNodeClick(node => window.open(`https://etherscan.io/address/${node.id}`, '_blank'));
+
+        function updateHighlight() {
+            // trigger update of highlighted objects in scene
+            Graph.nodeColor(Graph.nodeColor());
+        }
+
+    </script>
+
+    </html>
