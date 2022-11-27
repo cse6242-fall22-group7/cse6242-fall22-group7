@@ -104,19 +104,19 @@
                 } catch (err) { };
             }
 
-            const queryAddress = () => {
-                if (!selectedAddress) {
+            const queryAddress = (addr) => {
+                if (!addr) {
                     return;
                 }
                 try {
-                    ethers.utils.getAddress(selectedAddress);
+                    ethers.utils.getAddress(addr);
                 } catch (err) {
-                    alert(`Invalid address: ${selectedAddress}`);
+                    alert(`Invalid address: ${addr}`);
                     return;
                 }
                 var session = driver.session({ defaultAccessMode: neo4j.session.READ });
                 setIsLoading(true);
-                session.run(ADDRESS_QUERY, { address: selectedAddress.toLowerCase(), limit: neo4j.int(recordLimit) })
+                session.run(ADDRESS_QUERY, { address: addr.toLowerCase(), limit: neo4j.int(recordLimit) })
                     .then(handleData).then(() => { session.close(); setIsLoading(false); }).catch(handleError);
             }
 
@@ -186,7 +186,7 @@
             }
 
             const showLinkLabel = (link) => {
-                return `# TXs: ${link.count}, Amt: ${link.total_amount}ETH`
+                return `# TXs: ${link.count}, Amt: ${link.total_amount.toFixed(4)} ETH`
             }
 
             const handleNodeClick = useCallback((node) => {
@@ -251,7 +251,7 @@
                                 <input className="address" type="text" value={selectedAddress}
                                     placeholder="0x0f6d8da6942519c51d1da26e16d1b44e2e891b4a"
                                     onChange={handleAddressChange} />
-                                <button onClick={() => { queryAddress(); }}>Search</button>
+                                <button onClick={() => { queryAddress(selectedAddress); }}>Search</button>
                             </div>
                             <div>
                                 Query Limit:
@@ -287,6 +287,7 @@
                                 <button onClick={() => { window.open(`https://etherscan.io/address/${hoveredAddress.id}`, '_blank'); }}>
                                     Open in Etherscan </button>
                                 <button onClick={() => { expandSelectedAddress(); }}>Expand this node</button>
+                                <button onClick={() => { queryAddress(hoveredAddress.id); }}>Show only this node</button>
                             </div>
                         </div>
                     )}
