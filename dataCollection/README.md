@@ -34,3 +34,12 @@ CREATE TABLE tx (
 ```
 python3 crawl.py
 ```
+3. The sqlite file can then be exported as csv via:
+```
+sqlite> .headers on
+sqlite> .mode csv
+sqlite> .output transaction.csv
+sqlite> SELECT * FROM tx;
+sqlite> .output block.csv
+sqlite> SELECT * FROM block;
+```

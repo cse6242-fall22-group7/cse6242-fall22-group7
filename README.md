@@ -11,3 +11,8 @@ Therefore, in this project, we create an interactive interface to visualize the 
 
 ## Visualization
 Access our visualization [here!](https://cse6242-fall22-group7.github.io/eth-anomaly-detection/visualization/)
+
+## Running our code
+1. Do [data collection](https://github.com/cse6242-fall22-group7/eth-anomaly-detection/tree/main/dataCollection) to collect transactions
+2. Perform [data analysis](https://github.com/cse6242-fall22-group7/eth-anomaly-detection/tree/main/dataAnalysis) on transactions
+3. Create Neo4j database and import the data using `dataAnalysis/neo4j-import.ipynb`

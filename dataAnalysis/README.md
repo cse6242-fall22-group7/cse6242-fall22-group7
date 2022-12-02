@@ -18,5 +18,5 @@ This file includes graph build, feature generalization, clustering and LOF.
 5. operator
 
 ### Running
-Follow the instructions in `dataProcess.ipynb` and `embeddings.ipynb` to carry out the data analysis. Use the
-`neo4j-import.ipynb` for initialization of visualization.
+1. Follow the instructions in `dataProcess.ipynb` and `embeddings.ipynb` to carry out the data analysis.
+2. Use the `neo4j-import.ipynb` for initialization of visualization.
