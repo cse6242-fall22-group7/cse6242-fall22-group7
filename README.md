@@ -8,3 +8,6 @@ Ethereum is a blockchain platform that enables transactions to be conducted in a
 Cryptocurrency exchanges now comprise a considerable fraction of the financial industry. As with any other financial product, criminal activities, such as malicious transactions, money laundering, etc. exist in cryptocurrency transactions. Being able to easily identify suspicious transactions is beneficial to various users in the crypto community including individual users, traders, and account managers, etc.
 
 Therefore, in this project, we create an interactive interface to visualize the relationship between Ethereum accounts, and additionally detect accounts that are involved in suspicious transaction activity.
+
+## Visualization
+Access our visualization [here!](https://cse6242-fall22-group7.github.io/eth-anomaly-detection/visualization/)
