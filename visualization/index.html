@@ -12,6 +12,7 @@
 <body>
     <div id="app"></div>
     <script type="text/babel">
+        const REMOTE_URL = "bolt://anomaly-detection-neo4j.eastus.cloudapp.azure.com:7687";
         const { useState, useEffect, useCallback, useRef } = React;
 
         const TYPE1_QUERY = `
@@ -36,7 +37,7 @@
 
         const App = () => {
             const driver = neo4j.driver(
-                "bolt://anomaly-detection-neo4j.eastus.cloudapp.azure.com:7687",
+                REMOTE_URL,
                 neo4j.auth.basic("neo4j", "Abcd1234"),
                 { disableLosslessIntegers: true }
             )
